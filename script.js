@@ -2,7 +2,6 @@
 const colorModeToggle = document.getElementById('colorModeToggle');
 const body = document.body;
 const colorModeIcon = colorModeToggle.querySelector('i');
-
 // Check for saved theme preference or respect OS preference
 const savedTheme = localStorage.getItem('theme');
 const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');

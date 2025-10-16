@@ -786,7 +786,7 @@ header {
 
 /* ===== FOOTER ===== */
 footer {
-    background: var(--dark-color);
+    background:  #2c3e50;
     color: #fff;
     padding: 3rem 0;
     text-align: center;
