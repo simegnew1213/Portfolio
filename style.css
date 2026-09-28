@@ -31,12 +31,31 @@ html {
 }
 
 body {
+    position: relative;
     font-family: 'Poppins', sans-serif;
     line-height: 1.6;
     color: var(--text-color);
     background-color: var(--bg-color);
     overflow-x: hidden;
     transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(6, 10, 20, 0.45);
+    z-index: -1;
+}
+
+.page-video {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+    opacity: 0.9;
 }
 
 h1, h2, h3, h4 {
