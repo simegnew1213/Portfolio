@@ -1,30 +1,33 @@
 // Color Mode Toggle
 const colorModeToggle = document.getElementById('colorModeToggle');
 const body = document.body;
-const colorModeIcon = colorModeToggle.querySelector('i');
-// Check for saved theme preference or respect OS preference
-const savedTheme = localStorage.getItem('theme');
-const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+const colorModeIcon = colorModeToggle ? colorModeToggle.querySelector('i') : null;
 
-if (savedTheme === 'dark' || (!savedTheme && prefersDarkScheme.matches)) {
-    body.classList.add('dark-mode');
-    colorModeIcon.classList.remove('fa-moon');
-    colorModeIcon.classList.add('fa-sun');
-}
+if (colorModeToggle && colorModeIcon) {
+    // Check for saved theme preference or respect OS preference
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
 
-colorModeToggle.addEventListener('click', () => {
-    body.classList.toggle('dark-mode');
-    
-    if (body.classList.contains('dark-mode')) {
+    if (savedTheme === 'dark' || (!savedTheme && prefersDarkScheme.matches)) {
+        body.classList.add('dark-mode');
         colorModeIcon.classList.remove('fa-moon');
         colorModeIcon.classList.add('fa-sun');
-        localStorage.setItem('theme', 'dark');
-    } else {
-        colorModeIcon.classList.remove('fa-sun');
-        colorModeIcon.classList.add('fa-moon');
-        localStorage.setItem('theme', 'light');
     }
-});
+
+    colorModeToggle.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+
+        if (body.classList.contains('dark-mode')) {
+            colorModeIcon.classList.remove('fa-moon');
+            colorModeIcon.classList.add('fa-sun');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            colorModeIcon.classList.remove('fa-sun');
+            colorModeIcon.classList.add('fa-moon');
+            localStorage.setItem('theme', 'light');
+        }
+    });
+}
 
 // Mobile Navigation
 const hamburger = document.querySelector('.hamburger');
@@ -79,18 +82,19 @@ window.addEventListener('scroll', () => {
 
 // Portfolio Filter
 const filterBtns = document.querySelectorAll('.filter-btn');
-const portfolioItems = document.querySelectorAll('.portfolio-item');
 
 filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-        // Remove active class from all buttons
-        filterBtns.forEach(btn => btn.classList.remove('active'));
-        // Add active class to clicked button
+        filterBtns.forEach(filterBtn => {
+            filterBtn.classList.remove('active');
+            filterBtn.setAttribute('aria-pressed', 'false');
+        });
         btn.classList.add('active');
+        btn.setAttribute('aria-pressed', 'true');
         
         const filter = btn.getAttribute('data-filter');
         
-        portfolioItems.forEach(item => {
+        document.querySelectorAll('.portfolio-item').forEach(item => {
             if (filter === 'all' || item.getAttribute('data-category') === filter) {
                 item.style.display = 'block';
             } else {
@@ -100,31 +104,147 @@ filterBtns.forEach(btn => {
     });
 });
 
+// Duplicate project cards to make the marquee loop seamlessly.
+const portfolioTrack = document.querySelector('.portfolio-track');
+const portfolioSets = portfolioTrack ? portfolioTrack.querySelectorAll('.portfolio-set') : [];
+
+if (portfolioSets.length === 2) {
+    portfolioSets[0].querySelectorAll('.portfolio-item').forEach(item => {
+        const image = item.querySelector('.portfolio-img img');
+        const title = item.querySelector('h3');
+
+        if (image && title) {
+            image.loading = 'eager';
+
+            const viewButton = document.createElement('button');
+            viewButton.className = 'project-view-button';
+            viewButton.type = 'button';
+            viewButton.setAttribute('aria-label', `View ${title.textContent.trim()} image full screen`);
+            viewButton.innerHTML = '<i class="fas fa-expand" aria-hidden="true"></i> View';
+            item.querySelector('.portfolio-img').appendChild(viewButton);
+        }
+
+        const duplicate = item.cloneNode(true);
+        const duplicateImage = duplicate.querySelector('.portfolio-img img');
+        if (duplicateImage) {
+            duplicateImage.loading = 'eager';
+        }
+        duplicate.querySelectorAll('.project-view-button').forEach(button => {
+            button.setAttribute('tabindex', '-1');
+        });
+        portfolioSets[1].appendChild(duplicate);
+    });
+}
+
+// Open project images in a full-screen dialog.
+const projectViewer = document.getElementById('projectViewer');
+const projectViewerImage = projectViewer ? projectViewer.querySelector('.project-viewer-image') : null;
+const projectViewerCaption = projectViewer ? projectViewer.querySelector('.project-viewer-caption') : null;
+const projectViewerClose = projectViewer ? projectViewer.querySelector('.project-viewer-close') : null;
+
+if (portfolioTrack && projectViewer && projectViewerImage && projectViewerCaption && projectViewerClose) {
+    const closeProjectViewer = () => {
+        projectViewer.close();
+        projectViewerImage.removeAttribute('src');
+        projectViewerImage.alt = '';
+        projectViewerCaption.textContent = '';
+    };
+
+    portfolioTrack.addEventListener('click', event => {
+        const target = event.target;
+
+        if (!(target instanceof Element)) return;
+
+        const viewButton = target.closest('.project-view-button');
+        const project = viewButton ? viewButton.closest('.portfolio-item') : null;
+        const image = project ? project.querySelector('.portfolio-img img') : null;
+        const title = project ? project.querySelector('h3') : null;
+
+        if (!image || !title) return;
+
+        projectViewerImage.src = image.currentSrc || image.src;
+        projectViewerImage.alt = image.alt;
+        projectViewerCaption.textContent = title.textContent.trim();
+        projectViewer.showModal();
+    });
+
+    projectViewerClose.addEventListener('click', () => {
+        closeProjectViewer();
+    });
+
+    projectViewer.addEventListener('click', event => {
+        if (event.target === projectViewer) {
+            closeProjectViewer();
+        }
+    });
+
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && projectViewer.open) {
+            event.preventDefault();
+            closeProjectViewer();
+        }
+    });
+
+    projectViewer.addEventListener('close', () => {
+        projectViewerImage.removeAttribute('src');
+        projectViewerImage.alt = '';
+        projectViewerCaption.textContent = '';
+    });
+}
+
+// Duplicate certificate cards to make the marquee loop seamlessly.
+const certificateTrack = document.querySelector('.certificate-track');
+const certificateSets = certificateTrack ? certificateTrack.querySelectorAll('.certificate-set') : [];
+
+if (certificateSets.length === 2) {
+    const originalCards = certificateSets[0].querySelectorAll('.certificate-card');
+
+    originalCards.forEach(card => {
+        const duplicate = card.cloneNode(true);
+        duplicate.querySelectorAll('a').forEach(link => {
+            link.setAttribute('tabindex', '-1');
+        });
+        certificateSets[1].appendChild(duplicate);
+    });
+}
+
 // Testimonial Slider
 const testimonialSlides = document.querySelectorAll('.testimonial-slide');
 const testimonialDots = document.querySelectorAll('.testimonial-dot');
 let currentSlide = 0;
 
 function showSlide(index) {
+    if (!testimonialSlides.length || !testimonialDots.length) return;
+
     testimonialSlides.forEach(slide => slide.classList.remove('active'));
     testimonialDots.forEach(dot => dot.classList.remove('active'));
-    
-    testimonialSlides[index].classList.add('active');
-    testimonialDots[index].classList.add('active');
+
+    if (testimonialSlides[index]) {
+        testimonialSlides[index].classList.add('active');
+    }
+
+    if (testimonialDots[index]) {
+        testimonialDots[index].classList.add('active');
+    }
+
     currentSlide = index;
 }
 
-testimonialDots.forEach((dot, index) => {
-    dot.addEventListener('click', () => {
-        showSlide(index);
+if (testimonialDots.length) {
+    testimonialDots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            showSlide(index);
+        });
     });
-});
+}
 
 // Auto slide change
-setInterval(() => {
-    currentSlide = (currentSlide + 1) % testimonialSlides.length;
-    showSlide(currentSlide);
-}, 5000);
+if (testimonialSlides.length && testimonialDots.length) {
+    setInterval(() => {
+        currentSlide = (currentSlide + 1) % testimonialSlides.length;
+        showSlide(currentSlide);
+    }, 5000);
+}
 
 // Back to Top Button
 const backToTopBtn = document.querySelector('.back-to-top');
