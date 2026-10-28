@@ -1,31 +1,26 @@
-// Color Mode Toggle
 const colorModeToggle = document.getElementById('colorModeToggle');
 const body = document.body;
 const colorModeIcon = colorModeToggle ? colorModeToggle.querySelector('i') : null;
 
 if (colorModeToggle && colorModeIcon) {
-    // Check for saved theme preference or respect OS preference
     const savedTheme = localStorage.getItem('theme');
-    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
 
-    if (savedTheme === 'dark' || (!savedTheme && prefersDarkScheme.matches)) {
-        body.classList.add('dark-mode');
-        colorModeIcon.classList.remove('fa-moon');
-        colorModeIcon.classList.add('fa-sun');
-    }
+    const setColorMode = isDark => {
+        body.classList.toggle('dark-mode', isDark);
+        body.classList.toggle('light-mode', !isDark);
+        colorModeIcon.classList.toggle('fa-sun', isDark);
+        colorModeIcon.classList.toggle('fa-moon', !isDark);
+        colorModeToggle.setAttribute('aria-pressed', String(isDark));
+        colorModeToggle.setAttribute('aria-label', `Switch to ${isDark ? 'light' : 'dark'} mode`);
+        colorModeToggle.title = `Switch to ${isDark ? 'light' : 'dark'} mode`;
+    };
+
+    setColorMode(savedTheme !== 'light');
 
     colorModeToggle.addEventListener('click', () => {
-        body.classList.toggle('dark-mode');
-
-        if (body.classList.contains('dark-mode')) {
-            colorModeIcon.classList.remove('fa-moon');
-            colorModeIcon.classList.add('fa-sun');
-            localStorage.setItem('theme', 'dark');
-        } else {
-            colorModeIcon.classList.remove('fa-sun');
-            colorModeIcon.classList.add('fa-moon');
-            localStorage.setItem('theme', 'light');
-        }
+        const isDark = !body.classList.contains('dark-mode');
+        setColorMode(isDark);
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
     });
 }
 
@@ -96,7 +91,7 @@ filterBtns.forEach(btn => {
         
         document.querySelectorAll('.portfolio-item').forEach(item => {
             if (filter === 'all' || item.getAttribute('data-category') === filter) {
-                item.style.display = 'block';
+                item.style.display = '';
             } else {
                 item.style.display = 'none';
             }
@@ -104,35 +99,58 @@ filterBtns.forEach(btn => {
     });
 });
 
-// Duplicate project cards to make the marquee loop seamlessly.
 const portfolioTrack = document.querySelector('.portfolio-track');
-const portfolioSets = portfolioTrack ? portfolioTrack.querySelectorAll('.portfolio-set') : [];
+const portfolioSet = portfolioTrack ? portfolioTrack.querySelector('.portfolio-set') : null;
+const portfolioItems = portfolioSet ? portfolioSet.querySelectorAll('.portfolio-item') : [];
 
-if (portfolioSets.length === 2) {
-    portfolioSets[0].querySelectorAll('.portfolio-item').forEach(item => {
-        const image = item.querySelector('.portfolio-img img');
-        const title = item.querySelector('h3');
+portfolioItems.forEach(item => {
+    const image = item.querySelector('.portfolio-img img');
+    const title = item.querySelector('h3');
+    const imageContainer = item.querySelector('.portfolio-img');
 
-        if (image && title) {
-            image.loading = 'eager';
+    if (!image || !title || !imageContainer) return;
 
-            const viewButton = document.createElement('button');
-            viewButton.className = 'project-view-button';
-            viewButton.type = 'button';
-            viewButton.setAttribute('aria-label', `View ${title.textContent.trim()} image full screen`);
-            viewButton.innerHTML = '<i class="fas fa-expand" aria-hidden="true"></i> View';
-            item.querySelector('.portfolio-img').appendChild(viewButton);
-        }
+    const viewButton = document.createElement('button');
+    viewButton.className = 'project-view-button';
+    viewButton.type = 'button';
+    viewButton.setAttribute('aria-label', `View ${title.textContent.trim()} image full screen`);
+    viewButton.innerHTML = '<i class="fas fa-expand" aria-hidden="true"></i> View image';
+    imageContainer.appendChild(viewButton);
+});
 
+const duplicatePortfolioSet = portfolioTrack ? portfolioTrack.querySelector('.portfolio-set[aria-hidden="true"]') : null;
+
+if (portfolioSet && duplicatePortfolioSet) {
+    portfolioSet.querySelectorAll('.portfolio-item').forEach(item => {
         const duplicate = item.cloneNode(true);
-        const duplicateImage = duplicate.querySelector('.portfolio-img img');
-        if (duplicateImage) {
-            duplicateImage.loading = 'eager';
-        }
         duplicate.querySelectorAll('.project-view-button').forEach(button => {
             button.setAttribute('tabindex', '-1');
         });
-        portfolioSets[1].appendChild(duplicate);
+        duplicatePortfolioSet.appendChild(duplicate);
+    });
+}
+
+const serviceTrack = document.querySelector('.service-track');
+const serviceSet = serviceTrack ? serviceTrack.querySelector('.service-set') : null;
+const duplicateServiceSet = serviceTrack ? serviceTrack.querySelector('.service-set[aria-hidden="true"]') : null;
+
+if (serviceSet && duplicateServiceSet) {
+    serviceSet.querySelectorAll('.service-card').forEach(card => {
+        duplicateServiceSet.appendChild(card.cloneNode(true));
+    });
+}
+
+const certificateTrack = document.querySelector('.certificate-track');
+const certificateSet = certificateTrack ? certificateTrack.querySelector('.certificate-set') : null;
+const duplicateCertificateSet = certificateTrack ? certificateTrack.querySelector('.certificate-set[aria-hidden="true"]') : null;
+
+if (certificateSet && duplicateCertificateSet) {
+    certificateSet.querySelectorAll('.certificate-card').forEach(card => {
+        const duplicate = card.cloneNode(true);
+        duplicate.querySelectorAll('a').forEach(link => {
+            link.setAttribute('tabindex', '-1');
+        });
+        duplicateCertificateSet.appendChild(duplicate);
     });
 }
 
@@ -189,22 +207,6 @@ if (portfolioTrack && projectViewer && projectViewerImage && projectViewerCaptio
         projectViewerImage.removeAttribute('src');
         projectViewerImage.alt = '';
         projectViewerCaption.textContent = '';
-    });
-}
-
-// Duplicate certificate cards to make the marquee loop seamlessly.
-const certificateTrack = document.querySelector('.certificate-track');
-const certificateSets = certificateTrack ? certificateTrack.querySelectorAll('.certificate-set') : [];
-
-if (certificateSets.length === 2) {
-    const originalCards = certificateSets[0].querySelectorAll('.certificate-card');
-
-    originalCards.forEach(card => {
-        const duplicate = card.cloneNode(true);
-        duplicate.querySelectorAll('a').forEach(link => {
-            link.setAttribute('tabindex', '-1');
-        });
-        certificateSets[1].appendChild(duplicate);
     });
 }
 

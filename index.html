@@ -21,7 +21,9 @@
     <header id="header">
         <div class="container">
             <nav class="navbar">
-                <a href="#" class="logo">Simegnew<span>.</span></a>
+                <a href="#hero" class="logo" aria-label="Simegnew Aregahegn home">
+                    <img class="site-logo" src="Images/simegnew-logo.png" alt="Simegnew Aregahegn">
+                </a>
                 <ul class="nav-links">
                     <li><a href="#hero" class="active">Home</a></li>
                     <li><a href="#about">About</a></li>
@@ -29,9 +31,10 @@
                     <li><a href="#portfolio">Portfolio</a></li>
                     <li><a href="#certificates">Certificates</a></li>
                     <li><a href="#contact">Contact</a></li>
-                    <li>
-                        <button class="color-mode-toggle" id="colorModeToggle" aria-label="Toggle color mode">
-                            <i class="fas fa-moon"></i>
+                    <li class="theme-toggle-item">
+                        <button class="color-mode-toggle" id="colorModeToggle" type="button"
+                            aria-label="Switch to light mode" aria-pressed="false" title="Switch to light mode">
+                            <i class="fas fa-sun" aria-hidden="true"></i>
                         </button>
                     </li>
                 </ul>
@@ -43,89 +46,79 @@
             </nav>
         </div>
     </header>
-    <a href="" target=""><i></i></a>
     <!-- Hero Section -->
     <section id="hero">
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
-                    <h1>Hi, I'm <span>Simegnew Aregahegn</span></h1>
-                    <p>Data Science Student | Machine Learning Enthusiast | AI Developer</p>
-                    <a href="#portfolio" class="btn">View My Work</a>
+                    <p class="hero-greeting">Hello<span>.</span></p>
+                    <h1>I'm <span>Simegnew Aregahegn</span></h1>
+                    <h2>Data Science Student</h2>
+                    <p class="hero-description">I turn data into useful insights and build machine learning solutions for real-world problems.</p>
+                    <div class="hero-actions">
+                        <a href="#contact" class="btn">Let's talk</a>
+                        <a href="Images/my%20resume.pdf" class="btn btn-outline" download="Simegnew-Aregahegn-CV.pdf">My resume</a>
+                    </div>
                     <div class="social-icons">
-                        <a href="https://github.com/simegnew1213" target="_blank"><i class="fab fa-github"></i></a>
-                        <a href="https://www.linkedin.com/in/simegnewaregahegn" target="_blank"><i
+                        <a href="https://github.com/simegnew1213" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/simegnewaregahegn" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i
                                 class="fab fa-linkedin-in"></i></a>
-                        <a href="https://www.facebook.com/simegnaregahagn" target="_blank"><i
+                        <a href="https://www.facebook.com/simegnaregahagn" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i
                                 class="fab fa-facebook-f"></i></a>
-                        <a href="https://www.kaggle.com/simegnewaregahegn" target="_blank"><i
+                        <a href="https://www.kaggle.com/simegnewaregahegn" target="_blank" rel="noopener noreferrer" aria-label="Kaggle"><i
                                 class="fab fa-kaggle"></i></a>
-                        <a href="mailto:simegnewaregahegn@35gmail.com"><i class="fas fa-envelope"></i></a>
+                        <a href="mailto:simegnewaregahegn@35gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
                     </div>
                 </div>
                 <div class="hero-image">
-                    <img src="Images/ChatGPT Image Oct 8, 2025, 10_01_10 AM.png" alt="Simegnew Aregahegn">
+                    <img src="Images/simegenw.jpg" alt="Simegnew Aregahegn">
                 </div>
             </div>
         </div>
     </section>
+    <div class="technology-strip" aria-label="Areas of focus">
+        <div class="container">
+            <span>Python</span>
+            <span>Machine Learning</span>
+            <span>Data Analysis</span>
+            <span>SQL</span>
+            <span>Deep Learning</span>
+            <span>Visualization</span>
+        </div>
+    </div>
 
     <!-- About Section -->
     <section id="about" class="section">
         <div class="container">
-            <div class="section-title">
-                <h2>About Me</h2>
-            </div>
             <div class="about-content">
-                <div class="about-image">
-                    <img src="Images/ChatGPT Image Oct 8, 2025, 10_01_10 AM.png" alt="About Simegnew">
+                <div class="about-expertise" aria-label="Areas of expertise">
+                    <div class="expertise-item">
+                        <span class="expertise-icon"><i class="fas fa-chart-line" aria-hidden="true"></i></span>
+                        <span>Data Analysis</span>
+                    </div>
+                    <div class="expertise-item">
+                        <span class="expertise-icon"><i class="fas fa-robot" aria-hidden="true"></i></span>
+                        <span>Machine Learning</span>
+                    </div>
+                    <div class="expertise-item">
+                        <span class="expertise-icon"><i class="fas fa-brain" aria-hidden="true"></i></span>
+                        <span>Artificial Intelligence</span>
+                    </div>
                 </div>
                 <div class="about-text" role="region" aria-label="About information, skills, and CV" tabindex="0">
-                    <h3>Data Science Student with Passion for AI and Machine Learning</h3>
-                    <p>I'm a dedicated data science student with a strong passion for artificial intelligence and
-                        machine learning. Currently pursuing my degree, I'm constantly expanding my knowledge and skills
-                        in data analysis, predictive modeling, and deep learning.</p>
-                    <p>My journey in data science began with a fascination for how data can tell stories and reveal
-                        insights that drive decision-making. I enjoy working on projects that solve real-world problems
-                        using data-driven approaches.</p>
-                    <div class="skills">
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span>Python</span>
-                                <span>90%</span>
-                            </div>
-
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 90%;"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span>Machine Learning</span>
-                                <span>85%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 85%;"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span>Data Visualization</span>
-                                <span>80%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 80%;"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-info">
-                                <span>SQL</span>
-                                <span>75%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 75%;"></div>
-                            </div>
-                        </div>
+                    <p class="section-kicker">A little about me</p>
+                    <h2>About me</h2>
+                    <p>Hello! I'm <strong>Simegnew Aregahegn</strong>, a Data Science student passionate about Artificial Intelligence, Machine Learning, and building intelligent solutions to real-world problems.</p>
+                    <p>My main interests include <strong>Natural Language Processing (NLP), Deep Learning, Computer Vision, and Data Analytics</strong>. I enjoy exploring how AI models work, implementing machine learning algorithms, and transforming data into meaningful insights and practical applications.</p>
+                    <p>Throughout my learning journey, I have worked on projects involving Transformer architectures, Query-Key-Value (QKV) attention mechanisms, and machine translation. I am also interested in developing AI-powered applications for Ethiopian languages and computer vision systems, including banknote recognition to support visually impaired people.</p>
+                    <p>I continuously improve my skills in Python, data preprocessing, model development, and data analysis. I enjoy learning new technologies, solving challenging problems, and collaborating with others to build useful software and AI solutions.</p>
+                    <p><strong>My goal</strong> is to become a skilled AI and Data Science professional who uses technology to solve local challenges and create meaningful impact in Ethiopia and beyond.</p>
+                    <p>I'm always open to learning opportunities, internships, research collaborations, and teamwork on innovative technology projects.</p>
+                    <p class="about-signoff"><strong>Let's learn, build, and innovate together!</strong></p>
+                    <div class="about-highlights">
+                        <div><strong>Python</strong><span>Data &amp; machine learning</span></div>
+                        <div><strong>AI</strong><span>Models &amp; applications</span></div>
+                        <div><strong>Insights</strong><span>Analysis &amp; visualization</span></div>
                     </div>
                     <a href="Images/my%20resume.pdf" class="btn btn-secondary" download="my-resume.pdf">Download CV</a>
                 </div>
@@ -136,56 +129,48 @@
     <!-- Services Section -->
     <section id="services" class="section">
         <div class="container">
-            <div class="section-title">
-                <h2>My Services</h2>
+            <div class="portfolio-heading">
+                <div>
+                    <p class="portfolio-eyebrow">What I do</p>
+                    <h2>Services</h2>
+                    <p class="portfolio-description">Data science skills for turning information into useful solutions.</p>
+                </div>
             </div>
-            <div class="services-container">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-chart-line"></i>
+            <div class="service-marquee" role="region" aria-label="Services">
+                <div class="service-track">
+                    <div class="service-set">
+                        <article class="service-card">
+                            <div class="service-icon"><i class="fas fa-chart-line" aria-hidden="true"></i></div>
+                            <h3>Data Analysis</h3>
+                            <p>Explore datasets, identify trends, and communicate clear insights.</p>
+                        </article>
+                        <article class="service-card">
+                            <div class="service-icon"><i class="fas fa-robot" aria-hidden="true"></i></div>
+                            <h3>Machine Learning</h3>
+                            <p>Build predictive models to help solve practical problems.</p>
+                        </article>
+                        <article class="service-card">
+                            <div class="service-icon"><i class="fas fa-database" aria-hidden="true"></i></div>
+                            <h3>Data Engineering</h3>
+                            <p>Prepare, organize, and process data for analytics and modeling.</p>
+                        </article>
+                        <article class="service-card">
+                            <div class="service-icon"><i class="fas fa-chart-pie" aria-hidden="true"></i></div>
+                            <h3>Data Visualization</h3>
+                            <p>Present complex results through useful charts and dashboards.</p>
+                        </article>
+                        <article class="service-card">
+                            <div class="service-icon"><i class="fas fa-brain" aria-hidden="true"></i></div>
+                            <h3>Deep Learning</h3>
+                            <p>Explore neural network approaches for advanced AI applications.</p>
+                        </article>
+                        <article class="service-card">
+                            <div class="service-icon"><i class="fas fa-cloud" aria-hidden="true"></i></div>
+                            <h3>AI Solutions</h3>
+                            <p>Apply data science and AI methods to real-world challenges.</p>
+                        </article>
                     </div>
-                    <h3>Data Analysis</h3>
-                    <p>Extracting meaningful insights from complex datasets to drive business decisions and strategies
-                        through comprehensive data analysis.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <h3>Machine Learning</h3>
-                    <p>Developing predictive models and algorithms to solve complex problems and automate
-                        decision-making processes.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <h3>Data Engineering</h3>
-                    <p>Designing and implementing robust data pipelines and architectures for efficient data processing
-                        and storage.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-chart-pie"></i>
-                    </div>
-                    <h3>Data Visualization</h3>
-                    <p>Creating interactive and insightful visualizations to communicate complex data findings
-                        effectively.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <h3>Deep Learning</h3>
-                    <p>Building neural network models for image recognition, natural language processing, and other
-                        advanced AI applications.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-cloud"></i>
-                    </div>
-                    <h3>Cloud Solutions</h3>
-                    <p>Deploying scalable data science solutions on cloud platforms like AWS, GCP, and Azure.</p>
+                    <div class="service-set" aria-hidden="true"></div>
                 </div>
             </div>
         </div>
@@ -197,9 +182,8 @@
             <div class="portfolio-heading">
                 <div>
                     <p class="portfolio-eyebrow">Selected work</p>
-                    <h2>Projects built with data and purpose.</h2>
-                    <p class="portfolio-description">A selection of machine learning, analytics, and visualization
-                        projects.</p>
+                    <h2>Projects</h2>
+                    <p class="portfolio-description">Selected machine learning, analytics, and visualization work.</p>
                 </div>
             </div>
             <div class="portfolio-filter" role="group" aria-label="Filter projects">
@@ -257,6 +241,11 @@
                                 <span class="portfolio-category">Deep Learning · Internship</span>
                                 <h3>Amharic-English Translator</h3>
                                 <p>Bidirectional neural machine translation powered by a Transformer model.</p>
+                                <a class="project-repo-link"
+                                    href="https://github.com/simegnew1213/Neural-Machine-Translation-using-Sq2Sq2-Transformer-model-bidirectional-Amharic-and-English-.git"
+                                    target="_blank" rel="noopener noreferrer">
+                                    <i class="fab fa-github" aria-hidden="true"></i> View project
+                                </a>
                             </div>
                         </article>
                         <article class="portfolio-item" data-category="visualization">
@@ -312,6 +301,7 @@
     <section id="certificates" class="section">
         <div class="container">
             <div class="section-title">
+                <p class="section-kicker">Learning &amp; growth</p>
                 <h2>Certificates</h2>
             </div>
             <div class="certificate-marquee" role="region" aria-label="Certificate gallery">
@@ -468,25 +458,12 @@
     <!-- Contact Section -->
     <section id="contact" class="section">
         <div class="container">
-            <div class="section-title">
-                <h2>Contact Me</h2>
-            </div>
             <div class="contact-container">
                 <div class="contact-info">
-                    <h3>Let's Discuss Your Project</h3>
-                    <p>I'm currently available for freelance work, internships, or collaboration on interesting data
-                        science projects. Feel free to reach out if you have any questions or would like to discuss
-                        potential opportunities.</p>
+                    <p class="section-kicker">Contacts</p>
+                    <h2>Have a project?<br>Let's talk!</h2>
+                    <p>I'm open to internships, collaborations, and interesting data science projects. Send me a message and let's connect.</p>
                     <div class="contact-details">
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <div class="contact-text">
-                                <h4>Location</h4>
-                                <p>Addis Ababa, Ethiopia</p>
-                            </div>
-                        </div>
                         <div class="contact-item">
                             <div class="contact-icon">
                                 <i class="fas fa-envelope"></i>
@@ -495,15 +472,6 @@
                                 <h4>Email</h4>
                                 <p style="color: #2980b9;">simegnewaregahegn35@gmail.com<br>simegnaregahagn@gmail.com
                                 </p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-phone"></i>
-                            </div>
-                            <div class="contact-text">
-                                <h4>Phone</h4>
-                                <p>+251 903 269 180</p>
                             </div>
                         </div>
                     </div>
@@ -557,7 +525,6 @@
                 <ul class="footer-links">
                     <li><a href="#hero">Home</a></li>
                     <li><a href="#about">About</a></li>
-                    <li><a href="#services">Services</a></li>
                     <li><a href="#portfolio">Portfolio</a></li>
                     <li><a href="#certificates">Certificates</a></li>
                     <li><a href="#contact">Contact</a></li>
@@ -572,7 +539,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; <span id="year"></span> Simegnew Aregahegn. All Rights Reserved.</p>
+                <p>Designed with care. &copy; <span id="year"></span> Simegnew Aregahegn.</p>
             </div>
         </div>
     </footer>
