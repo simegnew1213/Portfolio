@@ -3268,19 +3268,26 @@ body.light-mode {
 .light-mode #hero .hero-text h2,
 .light-mode #about .about-text h2,
 .light-mode #about .about-text h3,
+.light-mode #services .portfolio-heading h2,
 .light-mode #portfolio .portfolio-heading h2,
 .light-mode #portfolio .portfolio-card-content h3,
+.light-mode #certificates .section-title h2,
 .light-mode #contact .contact-info h2 {
     color: #17252e;
 }
 
 .light-mode #hero .hero-description,
 .light-mode #about .about-text p,
+.light-mode #services .portfolio-description,
 .light-mode #portfolio .portfolio-description,
 .light-mode #portfolio .portfolio-card-content p,
 .light-mode #contact .contact-info > p:not(.section-kicker),
 .light-mode #contact .contact-text p {
     color: #58666e !important;
+}
+
+.light-mode #services .portfolio-eyebrow {
+    color: #b94734;
 }
 
 .light-mode #about .about-text p strong {
