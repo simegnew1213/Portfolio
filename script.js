@@ -154,6 +154,23 @@ if (certificateSet && duplicateCertificateSet) {
     });
 }
 
+document.querySelectorAll('.service-marquee, #portfolio .portfolio-marquee, #certificates .certificate-marquee')
+    .forEach(carousel => {
+        const enableManualScroll = () => carousel.classList.add('is-manual-scroll');
+
+        carousel.addEventListener('pointerdown', enableManualScroll);
+        carousel.addEventListener('wheel', event => {
+            if (event.deltaX !== 0 || event.shiftKey) {
+                enableManualScroll();
+            }
+        });
+        carousel.addEventListener('keydown', event => {
+            if (['ArrowLeft', 'ArrowRight', 'Home', 'End', 'PageUp', 'PageDown'].includes(event.key)) {
+                enableManualScroll();
+            }
+        });
+    });
+
 // Open project images in a full-screen dialog.
 const projectViewer = document.getElementById('projectViewer');
 const projectViewerImage = projectViewer ? projectViewer.querySelector('.project-viewer-image') : null;

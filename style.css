@@ -1321,26 +1321,43 @@ footer {
     }
 
     .nav-links {
-        position: fixed;
-        top: 80px;
-        left: -100%;
-        width: 100%;
-        height: calc(100dvh - 80px);
+        position: absolute;
+        top: calc(100% + 0.5rem);
+        right: 1rem;
+        left: auto;
+        width: min(18rem, calc(100vw - 3rem));
+        max-height: calc(100dvh - 6rem);
         overflow-y: auto;
         background: var(--bg-color);
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        transition: var(--transition);
+        align-items: stretch;
+        justify-content: flex-start;
+        gap: 0.25rem;
+        padding: 0.75rem;
+        border: 1px solid rgba(128, 128, 128, 0.2);
+        border-radius: 0.75rem;
+        box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.2);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-0.5rem);
+        transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.2s;
         z-index: 999;
     }
 
     .nav-links.active {
-        left: 0;
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        transition-delay: 0s;
     }
 
     .nav-links li {
-        margin: 1.5rem 0;
+        margin: 0.2rem 0;
+    }
+
+    .nav-links a {
+        display: block;
+        padding: 0.55rem 0.5rem;
     }
 
     .color-mode-toggle {
@@ -3044,9 +3061,13 @@ footer {
 #portfolio .portfolio-marquee,
 #certificates .certificate-marquee {
     width: 100%;
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
     padding: 0.65rem 0 1.2rem;
-    mask-image: linear-gradient(to right, transparent, #000 4%, #000 96%, transparent);
+    mask-image: none;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 117, 95, 0.75) rgba(255, 255, 255, 0.08);
+    scroll-snap-type: x proximity;
 }
 
 .service-track,
@@ -3064,6 +3085,19 @@ footer {
 #certificates .certificate-marquee:hover .certificate-track,
 #certificates .certificate-marquee:focus-within .certificate-track {
     animation-play-state: paused;
+}
+
+.service-marquee.is-manual-scroll .service-track,
+#portfolio .portfolio-marquee.is-manual-scroll .portfolio-track,
+#certificates .certificate-marquee.is-manual-scroll .certificate-track {
+    animation: none;
+    transform: none;
+}
+
+.service-marquee.is-manual-scroll .service-set[aria-hidden="true"],
+#portfolio .portfolio-marquee.is-manual-scroll .portfolio-set[aria-hidden="true"],
+#certificates .certificate-marquee.is-manual-scroll .certificate-set[aria-hidden="true"] {
+    display: none;
 }
 
 .service-set,
@@ -3086,8 +3120,29 @@ footer {
     }
 }
 
+.service-marquee::-webkit-scrollbar,
+#portfolio .portfolio-marquee::-webkit-scrollbar,
+#certificates .certificate-marquee::-webkit-scrollbar {
+    height: 0.45rem;
+}
+
+.service-marquee::-webkit-scrollbar-track,
+#portfolio .portfolio-marquee::-webkit-scrollbar-track,
+#certificates .certificate-marquee::-webkit-scrollbar-track {
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.service-marquee::-webkit-scrollbar-thumb,
+#portfolio .portfolio-marquee::-webkit-scrollbar-thumb,
+#certificates .certificate-marquee::-webkit-scrollbar-thumb {
+    border-radius: 1rem;
+    background: rgba(255, 117, 95, 0.75);
+}
+
 #services .service-card {
     flex: 0 0 clamp(230px, 26vw, 290px);
+    scroll-snap-align: start;
     min-height: 170px;
     padding: 1.25rem;
     border: 1px solid rgba(255, 255, 255, 0.09);
@@ -3115,7 +3170,8 @@ footer {
 }
 
 #portfolio .portfolio-marquee {
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
     padding: 0.65rem 0 1.2rem;
 }
 
@@ -3129,6 +3185,7 @@ footer {
 #portfolio .portfolio-item:nth-child(even) {
     display: flex;
     flex: 0 0 clamp(260px, 30vw, 320px);
+    scroll-snap-align: start;
     flex-direction: column;
     gap: 0;
     width: auto;
@@ -3172,6 +3229,7 @@ footer {
 
 #certificates .certificate-card {
     flex: 0 0 clamp(230px, 27vw, 280px);
+    scroll-snap-align: start;
 }
 
 @media (prefers-reduced-motion: reduce) {
